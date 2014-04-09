@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+#Description:
+# telnet to firewall automatically
+# Usage: telnet_expect.exp [ip] [port] [user] [password]
+# 	For example: telnet_expect.exp 10.103.228.11 2022 root default 
+# Author: Amos Zhu : qzhu@sonicwall.com
+#
+set ip [lindex $argv 0]
+set port [lindex $argv 1]
+set user [lindex $argv 2]
+set password [lindex $argv 3]
+spawn telnet "$ip" "$port"
+expect "login: "
+send "$user\r\n"
+expect "Password: "
+send "$password\r\n"
+interact {
+ \177        {send "\010"}
+ "\033\[3~"  {send "\177"}
+}
