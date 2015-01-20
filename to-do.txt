@@ -1,0 +1,2 @@
+//半透明
+sudo apt-get install xcompmgr
